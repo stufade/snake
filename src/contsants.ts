@@ -27,12 +27,12 @@ export const initialApple = [(fieldLen - 1) / 2, (fieldLen - 1) / 2];
 export const selectColor = (ceil: Ceil) => {
   switch (ceil) {
     case Ceil.Apple:
-      return 'red-900'
+      return 'bg-rose-600'
     case Ceil.Body:
-      return 'black'
+      return 'bg-green-600'
     case Ceil.Head:
-      return 'gray-600'
+      return 'bg-green-800'
     default:
-      return 'transparent'
+      return 'bg-transparent'
   }
 }

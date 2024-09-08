@@ -143,7 +143,7 @@ function App() {
       <div className='grid grid-cols-15 aspect-square h-[70vh]'>
         {fieldRef.current.map((row, rowIndex) => {
           return row.map((ceil, columnIndex) => {
-            return <div key={`${rowIndex} ${columnIndex}`} className={`border-2 bg-${selectColor(ceil)}`} />
+            return <div key={`${rowIndex} ${columnIndex}`} className={`border-2 ${selectColor(ceil)}`} />
           })
         })}
       </div>
