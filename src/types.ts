@@ -10,6 +10,7 @@ export enum Direction {
   Down,
   Left,
   Right,
+  Null
 }
 
 export enum Arrow {

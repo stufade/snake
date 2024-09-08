@@ -29,8 +29,9 @@ export const selectColor = (ceil: Ceil) => {
     case Ceil.Apple:
       return 'red-900'
     case Ceil.Body:
-    case Ceil.Head:
       return 'black'
+    case Ceil.Head:
+      return 'gray-600'
     default:
       return 'transparent'
   }

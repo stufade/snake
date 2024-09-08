@@ -1,16 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Arrow, Ceil, Direction } from './types';
 import { initialSnake, initialField, initialApple, generateRandomCoordinate, fieldLen, selectColor } from './contsants';
+import { RestartButton } from './RestartButton';
 
 function App() {
   const [snake, setSnake] = useState(initialSnake);
   const [isGameOver, setIsGameOver] = useState(false);
   const fieldRef = useRef(initialField);
   const appleRef = useRef(initialApple);
-  const directionRef = useRef(Direction.Right);
+  const directionRef = useRef(Direction.Null);
+
+  const handleRestart = useCallback(() => {
+    setSnake(initialSnake);
+    setIsGameOver(false);
+    fieldRef.current = initialField;
+    appleRef.current = initialApple;
+    directionRef.current = Direction.Null;
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (isGameOver) return;
+
       switch (e.key) {
         case Arrow.Down:
           if (directionRef.current === Direction.Up) {
@@ -44,7 +55,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     }
-  }, []);
+  }, [isGameOver]);
 
   useEffect(() => {
     const handleMove = () => {
@@ -122,7 +133,13 @@ function App() {
 
   return (
     <div className='w-screen h-screen flex justify-center items-center'>
-      {isGameOver && <div className='font-bold text-9xl absolute z-10 top-0'>GAME OVER</div>}
+      {directionRef.current === Direction.Null && <div className='font-bold text-7xl absolute z-10 top-10'>PRESS ARROWS TO START</div>}
+      {isGameOver && <>
+        <div className='font-bold text-9xl absolute z-10 top-0'>GAME OVER</div>
+        <div className='absolute top-1/2'>
+          <RestartButton onRestart={handleRestart} />
+        </div>
+      </>}
       <div className='grid grid-cols-15 aspect-square h-[70vh]'>
         {fieldRef.current.map((row, rowIndex) => {
           return row.map((ceil, columnIndex) => {
